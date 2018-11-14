@@ -1,5 +1,6 @@
 package boot;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,9 @@ import java.util.Random;
 @RestController
 public class RestApiController {
 
+  @Autowired
+  MetricsRegistry metricsRegistry;
+
   @RequestMapping("/api/hi")
   public String hi() {
     return "Hello world!";
@@ -25,4 +29,16 @@ public class RestApiController {
     response.addCookie(new Cookie("id", new Integer(new Random().nextInt()).toString()));
     return "my-page";
   }
+
+//  @RequestMapping("/bz")
+//  public String bz(HttpServletResponse response) {
+//    response.setHeader("Access-Control-Allow-Origin", "*");
+//    return "bzzz";
+//  }
+
+  @RequestMapping("/currentUsersNumber")
+  int getCurrentUsersNumber() {
+    return (Integer) metricsRegistry.get(MetricsEnum.ACTIVE_USERS_COUNT);
+  }
+
 }
