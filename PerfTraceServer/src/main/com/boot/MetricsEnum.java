@@ -1,4 +1,4 @@
-package boot;
+package com.boot;
 
 /**
  * @author ania.pawelczyk

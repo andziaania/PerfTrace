@@ -1,10 +1,11 @@
-package boot;
+package com.boot;
 
+import com.persistence.UserOnWebappRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Random;
 
@@ -18,6 +19,9 @@ public class RestApiController {
 
   @Autowired
   MetricsRegistry metricsRegistry;
+
+  @Autowired
+  UserOnWebappRegistry userOnWebappRegistry;
 
   @RequestMapping("/api/hi")
   public String hi() {
@@ -38,7 +42,11 @@ public class RestApiController {
 
   @RequestMapping("/currentUsersNumber")
   int getCurrentUsersNumber() {
-    return (Integer) metricsRegistry.get(MetricsEnum.ACTIVE_USERS_COUNT);
+    return 144;//(Integer) metricsRegistry.get(MetricsEnum.ACTIVE_USERS_COUNT);
   }
 
+  @RequestMapping("/initialLoad")
+  public void initialLoad(HttpServletRequest request) {
+    userOnWebappRegistry.registerVisit(request.getHeader("Origin"));
+  }
 }

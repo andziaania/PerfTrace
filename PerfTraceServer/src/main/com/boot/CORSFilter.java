@@ -1,4 +1,4 @@
-package boot;
+package com.boot;
 
 /**
  * Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources on a web page to be requested
@@ -35,6 +35,7 @@ public class CORSFilter implements Filter {
 
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) res;
+    //if request.getHeader("Origin") == ja
     response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 //    response.setHeader("Access-Control-Allow-Credentials", "true");
     response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");

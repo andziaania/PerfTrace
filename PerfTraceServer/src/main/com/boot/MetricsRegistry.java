@@ -1,6 +1,7 @@
-package boot;
+package com.boot;
 
 import org.springframework.stereotype.Component;
+//import persistence.WebappRepository;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -11,6 +12,10 @@ import java.util.function.Consumer;
  */
 @Component
 public class MetricsRegistry {
+
+//  @Autowired
+//  WebappRepository repository;
+
   private Map<MetricsEnum, Object> registry;
 
   public void put(MetricsEnum key, Object value) {
@@ -30,6 +35,10 @@ public class MetricsRegistry {
   }
 
   private int atomicIntOperation(Consumer<Integer> operationOnInt, MetricsEnum key) {
+
+//    repository.save(new Webapp("Jack2"));
+//    repository.save(new Webapp("Jack.e.e.2"));
+
     //TODO: make atomic on map and key
     Object value = registry.get(key);
     if (!(value instanceof Integer)) {
