@@ -11,7 +11,7 @@ import java.util.List;
  * @since 16.11.2018.
  */
 @Component
-public class UserOnWebappRegistry {
+public class UserOnWebappRegister {
 
   @Autowired
   private WebappRepository webappRepository;

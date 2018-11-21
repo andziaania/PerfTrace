@@ -1,6 +1,6 @@
 package com.boot;
 
-import com.persistence.UserOnWebappRegistry;
+import com.persistence.UserOnWebappRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,7 @@ public class RestApiController {
   MetricsRegistry metricsRegistry;
 
   @Autowired
-  UserOnWebappRegistry userOnWebappRegistry;
+  UserOnWebappRegister userOnWebappRegister;
 
   @RequestMapping("/api/hi")
   public String hi() {
@@ -47,6 +47,6 @@ public class RestApiController {
 
   @RequestMapping("/initialLoad")
   public void initialLoad(HttpServletRequest request) {
-    userOnWebappRegistry.registerVisit(request.getHeader("Origin"));
+    userOnWebappRegister.registerVisit(request.getHeader("Origin"));
   }
 }

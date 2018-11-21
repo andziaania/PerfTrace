@@ -1,6 +1,5 @@
 package com.persistence.test;
 
-import com.Main;
 import com.persistence.UserOnWebapp;
 import com.persistence.UserOnWebappRepository;
 import com.persistence.Webapp;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.*;
@@ -21,7 +19,6 @@ import java.util.List;
  * @since 16.11.2018.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes={Main.class})
 @DataJpaTest
 public class UserOnWebappRepositoryIntegrationTest {
 
