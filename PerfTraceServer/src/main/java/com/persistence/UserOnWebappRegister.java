@@ -20,16 +20,16 @@ public class UserOnWebappRegister {
   private UserOnWebappRepository userOnWebappRepository;
 
   public void registerVisit(String originUrl) {
-    List<Webapp> webapps = webappRepository.findByUrl(originUrl);
-    if (webapps.size() != 1) {
-      webappRepository.save(new Webapp(originUrl));
-      webapps = webappRepository.findByUrl(originUrl);
-//      throw new InvalidStateException(
-//              String.format("Webapp of url %s should be exacly one, but found %d", originUrl, webapps.size()));
-    }
+    Webapp webapp = webappRepository.findByUrl(originUrl);
+//    if (webapps.size() != 1) {
+//      webappRepository.save(new Webapp(originUrl));
+//      webapps = webappRepository.findByUrl(originUrl);
+////      throw new InvalidStateException(
+////              String.format("Webapp of url %s should be exacly one, but found %d", originUrl, webapps.size()));
+//    }
 
     UserOnWebapp user;
-    Webapp webapp = webapps.get(0);
+//    Webapp webapp = webapps.get(0);
     List<UserOnWebapp> users = userOnWebappRepository.findByWebapp(webapp);
     switch (users.size()) {
       case 0 : { user = new UserOnWebapp(webapp); break; }

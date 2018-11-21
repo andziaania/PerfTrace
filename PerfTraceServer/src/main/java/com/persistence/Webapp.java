@@ -32,6 +32,15 @@ public class Webapp {
   public Long getId() {
     return id;
   }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!this.getClass().equals(other.getClass())) return false;
+    Webapp otherWebapp = (Webapp) other;
+    return this.url.equals(otherWebapp.url)
+            && this.id == otherWebapp.id;
+  }
+
   @ Override
   public String toString() {
     return String.format("%s %d", url, id);

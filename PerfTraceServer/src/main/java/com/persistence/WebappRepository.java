@@ -9,5 +9,5 @@ import java.util.List;
  * @since 14.11.2018.
  */
 public interface WebappRepository extends CrudRepository<Webapp, Long> {
-  List<Webapp> findByUrl(String url);
+  Webapp findByUrl(String url);
 }

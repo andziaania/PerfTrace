@@ -40,10 +40,10 @@ public class UserOnWebappRepositoryIntegrationTest {
     entityManager.flush();
 
     //when
-    List<UserOnWebapp> found = userOnWebappRepository.findByWebapp(webapp);
+    List<UserOnWebapp> users = userOnWebappRepository.findByWebapp(webapp);
 
     //then
-    assertThat(found).size().isEqualTo(2);
-    assertThat(found).contains(user1).contains(user2);
+    assertThat(users).size().isEqualTo(2);
+    assertThat(users).contains(user1).contains(user2);
   }
 }
