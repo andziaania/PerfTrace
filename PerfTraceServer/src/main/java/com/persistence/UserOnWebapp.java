@@ -18,6 +18,10 @@ public class UserOnWebapp {
   @GeneratedValue
   private Long id;
 
+  private String sessionId;
+
+  private String currentUrl;
+
   @UpdateTimestamp
   private Date timestamp;
 
@@ -26,11 +30,10 @@ public class UserOnWebapp {
 
   private int clickNumber;
 
-  public UserOnWebapp() {
-  }
-
-  public UserOnWebapp(Webapp webapp) {
+  public UserOnWebapp(Webapp webapp, String sessionId, String currentUrl) {
     this.webapp = webapp;
+    this.sessionId = sessionId;
+    this.currentUrl = currentUrl;
   }
 
   public int getClickNumber() {
@@ -39,5 +42,9 @@ public class UserOnWebapp {
 
   public void setClickNumber(int clickNumber) {
     this.clickNumber = clickNumber;
+  }
+
+  public void setCurrentUrl(String currentUrl) {
+    this.currentUrl = currentUrl;
   }
 }

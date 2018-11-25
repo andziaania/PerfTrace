@@ -28,14 +28,15 @@ public class UserOnWebappRepositoryIntegrationTest {
   @Autowired
   UserOnWebappRepository userOnWebappRepository;
 
+  //TODO remove if findByWebapp not needed
   @Test
   public void whenFindByWebapp_thenReturnUser() {
     Webapp webapp = new Webapp("http://test.url:1234");
     entityManager.persist(webapp);
 
-    UserOnWebapp user1 = new UserOnWebapp(webapp);
+    UserOnWebapp user1 = new UserOnWebapp(webapp, "ID1", "http://test.url:1234/index.html");
     entityManager.persist(user1);
-    UserOnWebapp user2 = new UserOnWebapp(webapp);
+    UserOnWebapp user2 = new UserOnWebapp(webapp, "ID2", "http://test.url:1234/hello");
     entityManager.persist(user2);
     entityManager.flush();
 

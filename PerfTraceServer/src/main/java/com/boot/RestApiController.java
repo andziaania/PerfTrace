@@ -54,6 +54,13 @@ public class RestApiController {
 //    userOnWebappRegister.registerVisit(webappId, request.getHeader("Origin"));
   }
 
+  //jaki kod? 302?
+  @RequestMapping("Location")
+  public void redirect(HttpServletResponse res) {
+    res.setHeader("Location", "perftrace.0.1.js");
+    res.setStatus(302);
+  }
+
   @RequestMapping("/getWebappList")
   public List<Long> getWebappList() {
     final List<Long> webappList = new ArrayList();
@@ -69,5 +76,15 @@ public class RestApiController {
       add(new Webapp("d.wew.3"));
     }};
     webappRegister.addWebapps(webapps);
+  }
+
+  // Using GET as it's faster
+  @RequestMapping(value = "/registerAjaxRequest")
+  public void registerAjaxRequest(
+          @RequestParam("webappId") int webappId,
+          @RequestParam("ajaxRequestUrl") String ajaxRequestUrl,
+          HttpServletRequest request) {
+    userOnWebappRegister.registerVisit(webappId, request.getSession().getId(), ajaxRequestUrl);
+
   }
 }
