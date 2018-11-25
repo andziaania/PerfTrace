@@ -1,12 +1,16 @@
 package com.boot;
 
 import com.persistence.UserOnWebappRegister;
+import com.persistence.Webapp;
+import com.persistence.WebappRegister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,10 +22,10 @@ import java.util.Random;
 public class RestApiController {
 
   @Autowired
-  MetricsRegistry metricsRegistry;
+  private UserOnWebappRegister userOnWebappRegister;
 
   @Autowired
-  UserOnWebappRegister userOnWebappRegister;
+  private WebappRegister webappRegister;
 
   @RequestMapping("/api/hi")
   public String hi() {
@@ -47,6 +51,17 @@ public class RestApiController {
 
   @RequestMapping("/initialLoad")
   public void initialLoad(HttpServletRequest request) {
-    userOnWebappRegister.registerVisit(request.getHeader("Origin"));
+//    userOnWebappRegister.registerVisit(webappId, request.getHeader("Origin"));
   }
+
+  @RequestMapping("addWebapps")
+  public void addWebapps() {
+    List webapps = new ArrayList<Webapp>(){{
+      add(new Webapp("pierwsza"));
+      add(new Webapp("a.b.2"));
+      add(new Webapp("d.wew.3"));
+    }};
+    webappRegister.addWebapps(webapps);
+  }
+
 }
