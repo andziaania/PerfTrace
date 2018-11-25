@@ -54,6 +54,13 @@ public class RestApiController {
 //    userOnWebappRegister.registerVisit(webappId, request.getHeader("Origin"));
   }
 
+  @RequestMapping("/getWebappList")
+  public List<Long> getWebappList() {
+    final List<Long> webappList = new ArrayList();
+    webappRegister.getWebappList().forEach(webapp -> webappList.add(webapp.getId()));
+    return webappList;
+  }
+
   @RequestMapping("addWebapps")
   public void addWebapps() {
     List webapps = new ArrayList<Webapp>(){{
@@ -63,5 +70,4 @@ public class RestApiController {
     }};
     webappRegister.addWebapps(webapps);
   }
-
 }
