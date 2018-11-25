@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MetricsService } from '../metrics.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { MetricsService } from '../metrics.service';
 export class UsersComponent implements OnInit {
 
   currentUsersNumber: number;
+  url: String;
+  @Input() webappId: number;
 
   constructor(
     private metricsService: MetricsService
@@ -19,7 +21,7 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.metricsService.getCurrentUsersNumber()
+    this.metricsService.getCurrentUsersNumber(this.webappId)
         .subscribe(number => this.currentUsersNumber = number);
   }
 

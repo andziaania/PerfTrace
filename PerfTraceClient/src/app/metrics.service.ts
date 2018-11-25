@@ -13,8 +13,13 @@ export class MetricsService {
     private http: HttpClient
   ) { }
 
-  getCurrentUsersNumber(): Observable<number> {
-    const url = `${this.metricsUrl}/currentUsersNumber`;
+  getCurrentUsersNumber(webappId: number): Observable<number> {
+    const url = `${this.metricsUrl}/currentUsersNumber?webappId=${webappId}`;
     return this.http.get<number>(url);
+  }
+
+  getWebapps(): Observable<number[]> {
+    const url = `${this.metricsUrl}/getWebappList`;
+    return this.http.get<number[]>(url);
   }
 }
