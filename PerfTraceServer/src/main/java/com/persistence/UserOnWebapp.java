@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author ania.pawelczyk
@@ -23,12 +23,14 @@ public class UserOnWebapp {
   private String currentUrl;
 
   @UpdateTimestamp
-  private Date timestamp;
+  private LocalDateTime timestamp;
 
   @ManyToOne
   private Webapp webapp;
 
   private int clickNumber;
+
+  public UserOnWebapp() {}
 
   public UserOnWebapp(Webapp webapp, String sessionId, String currentUrl) {
     this.webapp = webapp;
@@ -38,6 +40,14 @@ public class UserOnWebapp {
 
   public int getClickNumber() {
     return clickNumber;
+  }
+
+  public LocalDateTime getTimestamp() {
+    return timestamp;
+  }
+
+  public String getSessionId() {
+    return sessionId;
   }
 
   public void setClickNumber(int clickNumber) {

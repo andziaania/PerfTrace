@@ -5,7 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author ania.pawelczyk
@@ -21,7 +21,7 @@ public class Webapp {
   private String url;
 
   @UpdateTimestamp
-  private Date timestamp;
+  private LocalDateTime timestamp;
 
   public Webapp(){}
 
