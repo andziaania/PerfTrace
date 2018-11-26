@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sun.plugin.dom.exception.InvalidStateException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -12,6 +13,8 @@ import java.util.Optional;
  */
 @Component
 public class UserOnWebappRegister {
+
+  private static int PRESENT_TIME_INTERVAL_MINUTES = 5;
 
   @Autowired
   private WebappRepository webappRepository;
@@ -32,9 +35,20 @@ public class UserOnWebappRegister {
       if (!webapp.isPresent()) {
         throw new InvalidStateException("No webapp of id = " + webappId);
       }
+      //Disclaimer: could be from factory
       user = new UserOnWebapp(webapp.get(), userSessionId, visitUrl);
     }
     userOnWebappRepository.save(user);
+  }
+
+  public int getCurrentWebappUsersNumber(long webappId) {
+    Optional<Webapp> webapp = webappRepository.findById(webappId);
+    if (!webapp.isPresent()) {
+      throw new InvalidStateException("No webapp of id = " + webappId);
+    }
+    return userOnWebappRepository.findByWebappAndTimestampGreaterThan(
+                webapp.get(), LocalDateTime.now().minusMinutes(PRESENT_TIME_INTERVAL_MINUTES))
+            .size();
   }
 
 

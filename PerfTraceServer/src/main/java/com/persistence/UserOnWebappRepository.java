@@ -2,6 +2,7 @@ package com.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,6 @@ public interface UserOnWebappRepository extends CrudRepository<UserOnWebapp, Lon
    Optional<UserOnWebapp> findBySessionId(String userSessionId);
 
    List<UserOnWebapp> findByWebapp(Webapp webapp);
+
+   List<UserOnWebapp> findByWebappAndTimestampGreaterThan(Webapp webapp, LocalDateTime presentTimeLowerBoundaryMinutes);
 }

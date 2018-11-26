@@ -45,8 +45,8 @@ public class RestApiController {
 //  }
 
   @RequestMapping("/currentUsersNumber")
-  int getCurrentUsersNumber() {
-    return 144;//(Integer) metricsRegistry.get(MetricsEnum.ACTIVE_USERS_COUNT);
+  int getCurrentUsersNumber(@RequestParam("webappId") long webappId) {
+    return userOnWebappRegister.getCurrentWebappUsersNumber(webappId);
   }
 
   @RequestMapping("/initialLoad")
@@ -85,6 +85,5 @@ public class RestApiController {
           @RequestParam("ajaxRequestUrl") String ajaxRequestUrl,
           HttpServletRequest request) {
     userOnWebappRegister.registerVisit(webappId, request.getSession().getId(), ajaxRequestUrl);
-
   }
 }

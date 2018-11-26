@@ -35,7 +35,7 @@ public class WebappRegisterTest {
 
 
   @Test(expected = Exception.class)
-  public void whenSavingWebappThatExists_throwsEx() throws Exception {
+  public void saveUnique_whenWebappAlreadyExists_throwEx() throws Exception {
     String url = "http://testowe:123";
     Webapp webapp = new Webapp(url);
     Mockito.when(webappRepositoryMock.findByUrl(url))
