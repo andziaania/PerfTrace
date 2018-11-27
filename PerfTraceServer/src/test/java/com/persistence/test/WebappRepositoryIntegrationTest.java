@@ -1,6 +1,5 @@
 package com.persistence.test;
 
-import java.util.List;
 import com.persistence.Webapp;
 import com.persistence.WebappRepository;
 import org.junit.Test;
@@ -8,9 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -20,9 +20,6 @@ import static org.assertj.core.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class WebappRepositoryIntegrationTest {
-
-  @Autowired
-  TestEntityManager entityManager;
 
   @Autowired
   WebappRepository webappRepository;
@@ -39,4 +36,13 @@ public class WebappRepositoryIntegrationTest {
     assertThat(webapp).isEqualTo(webappFound);
   }
 
+  @Test(expected = DataIntegrityViolationException.class)
+  public void save_whenUrlOfWebappAlreadyExists_throwsEx() {
+    Webapp webapp = new Webapp("http://url");
+    Webapp webappCopy = new Webapp("http://url");
+
+    webappRepository.save(webapp);
+    webappRepository.save(webappCopy);
+    webappRepository.findAll();
+  }
 }

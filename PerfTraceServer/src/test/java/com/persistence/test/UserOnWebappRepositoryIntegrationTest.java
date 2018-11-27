@@ -103,7 +103,7 @@ public class UserOnWebappRepositoryIntegrationTest {
     //We want to make sure, that persistence of user2 is older than 0.5 sec before user1 update.
     Thread.sleep(500);
     //Updating user2 timestamp in DB
-    user1.setClickNumber(20);
+    user1.setClickCount(20);
     entityManager.persist(user1);
     entityManager.flush();
 

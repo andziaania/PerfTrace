@@ -44,11 +44,6 @@ public class RestApiController {
 //    return "bzzz";
 //  }
 
-  @RequestMapping("/currentUsersNumber")
-  int getCurrentUsersNumber(@RequestParam("webappId") long webappId) {
-    return userOnWebappRegister.getCurrentWebappUsersNumber(webappId);
-  }
-
   @RequestMapping("/initialLoad")
   public void initialLoad(HttpServletRequest request) {
 //    userOnWebappRegister.registerVisit(webappId, request.getHeader("Origin"));
@@ -61,13 +56,6 @@ public class RestApiController {
     res.setStatus(302);
   }
 
-  @RequestMapping("/getWebappList")
-  public List<Long> getWebappList() {
-    final List<Long> webappList = new ArrayList();
-    webappRegister.getWebappList().forEach(webapp -> webappList.add(webapp.getId()));
-    return webappList;
-  }
-
   @RequestMapping("addWebapps")
   public void addWebapps() {
     List webapps = new ArrayList<Webapp>(){{
@@ -78,12 +66,37 @@ public class RestApiController {
     webappRegister.addWebapps(webapps);
   }
 
+
+
+  @RequestMapping("addWebapp")
+  public void addWebapp(@RequestParam("url") String url) throws InvalidWebappStateException {
+    webappRegister.saveUnique(url);
+  }
+
+
+  @RequestMapping("/getWebappList")
+  public List<Long> getWebappList() {
+    final List<Long> webappList = new ArrayList();
+    webappRegister.getWebappList().forEach(webapp -> webappList.add(webapp.getId()));
+    return webappList;
+  }
+
+
+
   // Using GET as it's faster
   @RequestMapping(value = "/registerAjaxRequest")
   public void registerAjaxRequest(
           @RequestParam("webappId") int webappId,
           @RequestParam("ajaxRequestUrl") String ajaxRequestUrl,
-          HttpServletRequest request) {
+          HttpServletRequest request,HttpServletResponse response) throws InvalidWebappStateException {
+
     userOnWebappRegister.registerVisit(webappId, request.getSession().getId(), ajaxRequestUrl);
+    response.getHeader("Cookies");
+
+  }
+
+  @RequestMapping("/currentUsersNumber")
+  int getCurrentUsersNumber(@RequestParam("webappId") long webappId) throws InvalidWebappStateException {
+    return userOnWebappRegister.getCurrentWebappUsersNumber(webappId);
   }
 }

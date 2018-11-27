@@ -28,7 +28,7 @@ public class UserOnWebapp {
   @ManyToOne
   private Webapp webapp;
 
-  private int clickNumber;
+  private int clickCount;
 
   public UserOnWebapp() {}
 
@@ -38,8 +38,8 @@ public class UserOnWebapp {
     this.currentUrl = currentUrl;
   }
 
-  public int getClickNumber() {
-    return clickNumber;
+  public int getClickCount() {
+    return clickCount;
   }
 
   public LocalDateTime getTimestamp() {
@@ -50,8 +50,8 @@ public class UserOnWebapp {
     return sessionId;
   }
 
-  public void setClickNumber(int clickNumber) {
-    this.clickNumber = clickNumber;
+  public void setClickCount(int clickCount) {
+    this.clickCount = clickCount;
   }
 
   public void setCurrentUrl(String currentUrl) {

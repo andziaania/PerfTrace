@@ -1,5 +1,6 @@
 package com.persistence.test;
 
+import com.boot.InvalidWebappStateException;
 import com.persistence.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +39,7 @@ public class UserOnWebappRegisterTest {
   WebappRepository webappRepositoryMock;
 
   @Test
-  public void registerVisit_whenNewUser_thenRegister() {
+  public void registerVisit_whenNewUser_thenRegister() throws InvalidWebappStateException {
     Mockito.when(userOnWebappRepositoryMock.findBySessionId(Mockito.anyString())).thenReturn(Optional.empty());
     Mockito.when(webappRepositoryMock.findById(Mockito.anyLong()))
             .thenReturn(Optional.of(Mockito.mock(Webapp.class)));
@@ -49,7 +50,7 @@ public class UserOnWebappRegisterTest {
   }
 
   @Test(expected = Exception.class)
-  public void registerVisit_whenNewUserAndNoWebappInRepo_throwEx() {
+  public void registerVisit_whenNewUserAndNoWebappInRepo_throwEx() throws InvalidWebappStateException {
     Mockito.when(userOnWebappRepositoryMock.findBySessionId(Mockito.anyString())).thenReturn(Optional.empty());
     Mockito.when(webappRepositoryMock.findById(Mockito.anyLong())).thenReturn(Optional.empty());
 
@@ -57,7 +58,7 @@ public class UserOnWebappRegisterTest {
   }
 
   @Test
-  public void registerVisit_whenUserExists_update() {
+  public void registerVisit_whenUserExists_update() throws InvalidWebappStateException {
     UserOnWebapp userOnWebapp = new UserOnWebapp(Mockito.mock(Webapp.class), "JSessionId", "url/test:12");
 
     Mockito.when(userOnWebappRepositoryMock.findBySessionId(Mockito.anyString()))
@@ -69,7 +70,7 @@ public class UserOnWebappRegisterTest {
   }
 
   @Test
-  public void registerVisit_whenUserExists_userDataIsChanged() {
+  public void registerVisit_whenUserExists_userDataIsChanged() throws InvalidWebappStateException {
     UserOnWebapp userOnWebapp = new UserOnWebapp(Mockito.mock(Webapp.class), "JSessionId", "url/test:12");
 
     Mockito.when(userOnWebappRepositoryMock.findBySessionId(Mockito.anyString()))

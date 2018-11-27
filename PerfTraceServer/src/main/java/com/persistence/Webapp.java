@@ -2,6 +2,7 @@ package com.persistence;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ public class Webapp {
   @GeneratedValue
   private Long id;
 
+  @Column(unique = true)
   private String url;
 
   @UpdateTimestamp

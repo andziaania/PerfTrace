@@ -1,8 +1,8 @@
 package com.persistence;
 
+import com.boot.InvalidWebappStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -23,17 +23,17 @@ public class UserOnWebappRegister {
   private UserOnWebappRepository userOnWebappRepository;
 
   // TODO userId != sessionId
-  public void registerVisit(int webappId, String userSessionId, String visitUrl) {
+  public void registerVisit(int webappId, String userSessionId, String visitUrl) throws InvalidWebappStateException {
     Optional<UserOnWebapp> userO = userOnWebappRepository.findBySessionId(userSessionId);
     UserOnWebapp user;
     if (userO.isPresent()) {
       user = userO.get();
-      user.setClickNumber(user.getClickNumber() + 1);
+      user.setClickCount(user.getClickCount() + 1);
       user.setCurrentUrl(visitUrl);
     } else {
       Optional<Webapp> webapp = webappRepository.findById((long) webappId);
       if (!webapp.isPresent()) {
-        throw new InvalidStateException("No webapp of id = " + webappId);
+        throw new InvalidWebappStateException("No webapp of id = " + webappId);
       }
       //Disclaimer: could be from factory
       user = new UserOnWebapp(webapp.get(), userSessionId, visitUrl);
@@ -41,10 +41,10 @@ public class UserOnWebappRegister {
     userOnWebappRepository.save(user);
   }
 
-  public int getCurrentWebappUsersNumber(long webappId) {
+  public int getCurrentWebappUsersNumber(long webappId) throws InvalidWebappStateException {
     Optional<Webapp> webapp = webappRepository.findById(webappId);
     if (!webapp.isPresent()) {
-      throw new InvalidStateException("No webapp of id = " + webappId);
+      throw new InvalidWebappStateException("No webapp of id = " + webappId);
     }
     return userOnWebappRepository.findByWebappAndTimestampGreaterThan(
                 webapp.get(), LocalDateTime.now().minusMinutes(PRESENT_TIME_INTERVAL_MINUTES))
@@ -68,7 +68,7 @@ public class UserOnWebappRegister {
 //    case 1 : { user = users.get(0); break; }
 //    default: throw new InvalidStateException("Multiple users not supported yet");
 //  }
-//    user.setClickNumber(user.getClickNumber() + 1);
+//    user.setClickCount(user.getClickCount() + 1);
 //    userOnWebappRepository.save(user);
 
 }
