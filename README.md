@@ -17,4 +17,4 @@ Client side: Displays metrics of your website.
 
 ## How to
 
-Need to seorce the perftrace.js file at your website and add your website to PerfTrace via the PerfTrace Client.
+Need to source the perftrace.js file at your website and add your website to PerfTrace via the PerfTrace Client.
